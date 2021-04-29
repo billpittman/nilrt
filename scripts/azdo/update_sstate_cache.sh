@@ -87,8 +87,10 @@ pull_cache() {
 		latest_cache_dir=$(ls -r -I *.latest | sed -n 2p)
 	fi
 
-	echo Copying over the cache contents from $latest_cache_dir. Might take a while...
-	rsync -rltxSWh --info=STATS1 "$latest_cache_dir"/ "$local_sstate_cache_dir"/
+	if [ -n "$latest_cache_dir" ] ; then
+	        echo Copying over the cache contents from $latest_cache_dir. Might take a while...
+	        rsync -rltxSWh --info=STATS1 "$latest_cache_dir"/ "$local_sstate_cache_dir"/
+        fi
 
 	popd >/dev/null
 }
